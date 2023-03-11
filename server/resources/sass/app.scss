@@ -1,0 +1,31 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.like {
+  text-decoration: none;
+  color: #000;
+}
+
+.liked {
+  color: red;
+  text-decoration: none;
+}
+
+// swiperの色を調整
+.swiper-button-next,
+.swiper-button-prev {
+    --swiper-navigation-color: gray; //ここに変更する色を指定
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 0 0 10px !important;
+  background: #333 !important;
+}
