@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\Like;
 
 class HomeController extends Controller
 {
-
-    public function index(Request $request)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
 
-        return view('home', [
-            'title' => 'Home',
-            'posts' =>  Post::latest()->paginate(9),
-        ]);
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
     }
 }
