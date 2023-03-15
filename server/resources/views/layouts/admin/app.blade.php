@@ -20,9 +20,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-    <!-- ファビコン設定 -->
-    <link rel="icon" href="{{ auth()->user()->image('favicon') ? auth()->user()->image('favicon') : asset('image/favicon.ico') }}">
-
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
