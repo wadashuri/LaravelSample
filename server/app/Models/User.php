@@ -46,19 +46,4 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token){
         $this->notify(new PasswordReset($token));
         }
-
-    //****************************************
-    //     リレーション設定
-    //****************************************
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function likes()
-    {
-        return $this->belongsToMany(Post::class, 'likes');
-    }
-
 }

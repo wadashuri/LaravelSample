@@ -51,7 +51,7 @@ class LoginController extends Controller
      */
     public function loginForm(Request $request)
     {
-        return view('auth.login', compact('admin'));
+        return view('auth.login');
     }
 
     /**
