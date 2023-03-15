@@ -51,11 +51,6 @@ class LoginController extends Controller
      */
     public function loginForm(Request $request)
     {
-        $oem_id = $request->input('id', '');
-        $admin = null;
-        if ($oem_id) {
-            $admin = Admin::where('oem', $oem_id)->firstOrFail();
-        }
         return view('auth.login', compact('admin'));
     }
 
