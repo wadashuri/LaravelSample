@@ -9,7 +9,5 @@ class CategoryPost extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id','post_id'];
-
-    public $timestamps = false;
+    protected $guarded = ['id'];
 }

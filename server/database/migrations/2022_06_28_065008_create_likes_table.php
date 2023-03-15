@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateLikesTable extends Migration
 {
@@ -19,6 +20,7 @@ class CreateLikesTable extends Migration
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
         });
+        DB::statement("ALTER TABLE likes comment='いいねDB'");
     }
 
     /**
