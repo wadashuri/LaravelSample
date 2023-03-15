@@ -12,7 +12,7 @@ services:
 
   db:
     image: mysql:5.7.36
-    platform: 'linux/amd64'
+    # platform: 'linux/amd64'//m1macでの開発時はコメントアウト解除
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: root
