@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Models\Admin;
 
 class LoginController extends Controller
 {
@@ -19,14 +19,12 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
-
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $_guard;
 
     /**
      * Create a new controller instance.
@@ -35,6 +33,59 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        if (request()->route()) {
+            # ルート名から現在のguard名を取得
+            $route = explode('.', request()->route()->getName());
+            $this->_guard = $route[0];
+        }
+    }
+
+    protected function redirectTo()
+    {
+        //ガード値からルートネームでトップへ
+        return route($this->_guard . '.home');
+    }
+
+    /**
+     * ログイン画面表示
+     */
+    public function loginForm(Request $request)
+    {
+        $oem_id = $request->input('id', '');
+        $admin = null;
+        if ($oem_id) {
+            $admin = Admin::where('oem', $oem_id)->firstOrFail();
+        }
+        return view('auth.login', compact('admin'));
+    }
+
+    /**
+     * ログイン処理
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->only(['email', 'password']);
+        //リダイレクトさせるルート
+        $route_name = $this->_guard . '.home';
+
+        if (auth($this->_guard)->attempt($credentials, $request->filled('remember'))) {
+            if ($this->_guard !== 'admin') { #admin以外はログインログを保存
+                auth($this->_guard)->user()->update(['last_login_at' => now()]);
+            }
+            return redirect()->route($route_name);
+        }
+        return back()->withInput($credentials)->withErrors([
+            'password' => ['認証に失敗しました。']
+        ]);
+    }
+
+    /**
+     * ログアウト処理
+     * memberログアウト時customerに値が入る
+     */
+    public function logout()
+    {
+        auth($this->_guard)->logout();
+        return redirect()->route($this->_guard . '.login');
     }
 }

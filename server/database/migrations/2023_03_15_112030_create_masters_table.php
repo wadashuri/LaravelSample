@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryPostTable extends Migration
+class CreateMastersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateCategoryPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_post', function (Blueprint $table) {
+        Schema::create('masters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
         });
@@ -29,10 +31,6 @@ class CreateCategoryPostTable extends Migration
      */
     public function down()
     {
-        Schema::table('category_post', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
-            $table->dropForeign(['post_id']);
-            $table->dropIfExists('category_posts');
-        });
+        Schema::dropIfExists('masters');
     }
 }

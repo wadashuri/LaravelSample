@@ -3,12 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use App\Models\Master;
 use Illuminate\Support\Facades\Hash;
 
-
-class UserTableSeeder extends Seeder
+class MasterTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,10 +15,10 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(50)->sequence(
+        Master::factory(10)->sequence(
             fn ($sequence) => [
-                'email' => 'user' . ($sequence->index + 1) . '@example.com',
-                'password' => Hash::make('user' . ($sequence->index + 1)),
+                'email' => 'master' . ($sequence->index + 1) . '@example.com',
+                'password' => Hash::make('master' . ($sequence->index + 1)),
             ],
         )->create();
     }

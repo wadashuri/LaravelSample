@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             PostTableSeeder::class,
             CategoryTableSeeder::class,
             LikeTableSeeder::class,
+            AdminTableSeeder::class,
+            MasterTableSeeder::class,
           ]);
     }
 }

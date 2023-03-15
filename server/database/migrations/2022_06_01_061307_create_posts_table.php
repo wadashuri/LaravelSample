@@ -19,7 +19,8 @@ class CreatePostsTable extends Migration
             $table->string('title')->comment('タイトル');
             $table->text('content')->comment('コンテンツ');
             $table->text('comment')->comment('コメント');
-            $table->timestamps();
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
